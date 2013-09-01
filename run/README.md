@@ -1,18 +1,21 @@
-#Run
+# Run
 
 single tool to run Python, node.js and compile & run CPP files
 
-##Features
+## Features
 
 * Compile and run cpp files
 * Run Python and Node.js applications
 
-##Example
+## Example
 
     run app.js
     run app.py
     run transform.cpp
 
-##Todo
+![](http://i.imgur.com/ev8DiS4.gif)
 
-Add terminal screenshot gif
+## Todo
+
+1. Add optimization flags for g++
+2. Support for C programs
