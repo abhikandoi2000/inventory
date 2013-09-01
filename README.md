@@ -1,7 +1,7 @@
-#Shell Scripts
+#Inventory
 
-This is a collection of scripts to simplify everyday tasks.
+This is a collection of tools to simplify everyday tasks.
 
-##Scripts
+##Tools
 
-* run - compile and run C++ and C files
+* run - a single tool to compile and run C++, run Python and node.js
