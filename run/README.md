@@ -1,13 +1,13 @@
 #Run
 
-single tool to run Python, node.js and compile+run CPP files
+single tool to run Python, node.js and compile & run CPP files
 
 ##Features
 
 * Compile and run cpp files
-* 
+* Run Python and Node.js applications
 
-##Use
+##Example
 
     run app.js
     run app.py
@@ -15,4 +15,4 @@ single tool to run Python, node.js and compile+run CPP files
 
 ##Todo
 
-Add terminal screenshot
+Add terminal screenshot gif
