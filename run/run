@@ -1,4 +1,9 @@
 #!/bin/bash
+if [ $# -eq 0 ]; then
+  echo "No file supplied"
+  echo "Usage: run <filename>"
+  exit
+fi
 fullname=$1
 file_ext=${fullname##*.}
 length=$(($#0))
