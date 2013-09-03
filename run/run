@@ -14,6 +14,9 @@ elif [ $file_ext = "cpp" ] || [ $file_ext = "cc" ]; then
   cpp_executable_ext='.out'
   output_file=${fullname%.*}
   g++ -o $output_file$cpp_executable_ext $fullname
+  if [ $? -ne 0 ]; then
+    exit
+  fi
   ./$output_file$cpp_executable_ext $arguments
   rm $output_file$cpp_executable_ext
 elif [ $file_ext = "js" ]; then
@@ -30,12 +33,18 @@ elif [ $file_ext = "java" ]; then
   java_class_ext='.class'
   filename=${fullname%.*}
   javac $fullname
+  if [ $? -ne 0 ]; then
+    exit
+  fi
   java $filename $arguments
   rm $filename$java_class_ext
 elif [ $file_ext = "c" ]; then
   c_executable_ext='.out'
   output_file=${fullname%.*}
   gcc -o $output_file$c_executable_ext $fullname
+  if [ $? -ne 0]; then
+    exit
+  fi
   ./$output_file$c_executable_ext $arguments
   rm $output_file$c_executable_ext
 fi
