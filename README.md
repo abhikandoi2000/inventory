@@ -4,7 +4,7 @@ This is a collection of tools to simplify everyday tasks.
 
 ##Tools
 
-* run - a single tool to compile and run C++, run Python and node.js
+* [run](https://github.com/abhikandoi2000/inventory/tree/master/run "run tool") - simple tool to compile and/or run various files
 
 ##Install
 
