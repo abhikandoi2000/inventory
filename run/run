@@ -7,9 +7,8 @@ OLDIFS=$IFS
 
 IFS=$(echo -en "\n\b")
 
-# restore field seperator and quit
+# close the program
 quit() {
-  IFS=$OLDIFS
   exit
 }
 
@@ -25,6 +24,10 @@ fullname=$1
 file_ext=${fullname##*.}
 length=$(($#0))
 arguments=${@:2:length}
+
+# restore field seperator
+IFS=$OLDIFS
+
 if [ $file_ext = "py" ]; then
   python $fullname $arguments
 elif [ $file_ext = "cpp" ] || [ $file_ext = "cc" ]; then
