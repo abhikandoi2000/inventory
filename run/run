@@ -1,9 +1,26 @@
 #!/bin/bash
-if [ $# -eq 0 ]; then
-  echo "No file supplied"
-  echo "Usage: run <filename>"
+
+NORMAL=$(tput sgr0)
+YELLOW=$(tput setaf 3)
+GREEN=$(tput setaf 2; tput bold)
+OLDIFS=$IFS
+
+IFS=$(echo -en "\n\b")
+
+# restore field seperator and quit
+quit() {
+  IFS=$OLDIFS
   exit
+}
+
+# quit if no arguments
+if [ $# -eq 0 ]; then
+  echo "$YELLOW[Warning]$NORMAL No file supplied"
+  echo "Usage: run <filename> <arguments>"
+  echo "Example: run multiply.cpp 5 6"
+  quit
 fi
+
 fullname=$1
 file_ext=${fullname##*.}
 length=$(($#0))
@@ -15,7 +32,7 @@ elif [ $file_ext = "cpp" ] || [ $file_ext = "cc" ]; then
   output_file=${fullname%.*}
   g++ -o $output_file$cpp_executable_ext $fullname
   if [ $? -ne 0 ]; then
-    exit
+    quit
   fi
   ./$output_file$cpp_executable_ext $arguments
   rm $output_file$cpp_executable_ext
@@ -34,7 +51,7 @@ elif [ $file_ext = "java" ]; then
   filename=${fullname%.*}
   javac $fullname
   if [ $? -ne 0 ]; then
-    exit
+    quit
   fi
   java $filename $arguments
   rm $filename$java_class_ext
@@ -43,8 +60,9 @@ elif [ $file_ext = "c" ]; then
   output_file=${fullname%.*}
   gcc -o $output_file$c_executable_ext $fullname
   if [ $? -ne 0]; then
-    exit
+    quit
   fi
   ./$output_file$c_executable_ext $arguments
   rm $output_file$c_executable_ext
 fi
+
