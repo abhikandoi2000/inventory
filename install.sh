@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#Exit if any command returns a nonzero exit value 
+set -e
+
 GREEN=$(tput setaf 2; tput bold)
 NORMAL=$(tput sgr0)
 

@@ -1,8 +1,10 @@
 #!/bin/bash
 
+# Variables to change color of text
 NORMAL=$(tput sgr0)
 YELLOW=$(tput setaf 3)
 GREEN=$(tput setaf 2; tput bold)
+
 OLDIFS=$IFS
 
 IFS=$(echo -en "\n\b")
@@ -22,14 +24,28 @@ fi
 
 fullname=$1
 file_ext=${fullname##*.}
-length=$(($#0))
-arguments=${@:2:length}
+
+# Exit if the file has no extension
+if [ $fullname == $file_ext ]; then
+  echo "File with no extension cannot be passed"
+  quit
+fi
 
 # restore field seperator
 IFS=$OLDIFS
 
+#Copy all the arguments in the array 'arguments'
+i=0
+declare -a arguments; 
+for var in "${@:2}"
+do
+  arguments[i]=$var
+  i=$(($i+1)) 
+done
+
+#Extension based search for which command to execute
 if [ $file_ext = "py" ]; then
-  python "$fullname" $arguments
+  python "$fullname" "${arguments[@]}"
 elif [ $file_ext = "cpp" ] || [ $file_ext = "cc" ]; then
   cpp_executable_ext='.out'
   output_file=${fullname%.*}
@@ -37,18 +53,18 @@ elif [ $file_ext = "cpp" ] || [ $file_ext = "cc" ]; then
   if [ $? -ne 0 ]; then
     quit
   fi
-  ./"$output_file$cpp_executable_ext" $arguments
+  ./"$output_file$cpp_executable_ext" "${arguments[@]}"
   rm "$output_file$cpp_executable_ext"
 elif [ $file_ext = "js" ]; then
-  node "$fullname" $arguments
+  node "$fullname" "${arguments[@]}"
 elif [ $file_ext = "rb" ]; then
-  ruby "$fullname" $arguments
+  ruby "$fullname" "${arguments[@]}"
 elif [ $file_ext = "sh" ]; then
-  sh "$fullname" $arguments
+  sh "$fullname" "${arguments[@]}"
 elif [ $file_ext = "zsh" ]; then
-  zsh "$fullname" $arguments
+  zsh "$fullname" "${arguments[@]}"
 elif [ $file_ext = "php" ]; then
-  php "$fullname" $arguments
+  php "$fullname" "${arguments[@]}"
 elif [ $file_ext = "java" ]; then
   java_class_ext='.class'
   filename=${fullname%.*}
@@ -56,7 +72,7 @@ elif [ $file_ext = "java" ]; then
   if [ $? -ne 0 ]; then
     quit
   fi
-  java "$filename" $arguments
+  java "$filename" "${arguments[@]}"
   rm "$filename$java_class_ext"
 elif [ $file_ext = "c" ]; then
   c_executable_ext='.out'
@@ -65,7 +81,6 @@ elif [ $file_ext = "c" ]; then
   if [ $? -ne 0]; then
     quit
   fi
-  ./"$output_file$c_executable_ext" $arguments
+  ./"$output_file$c_executable_ext" "${arguments[@]}"
   rm "$output_file$c_executable_ext"
 fi
-
