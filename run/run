@@ -1,8 +1,10 @@
 #!/bin/bash
 
+# Variables to change color of text
 NORMAL=$(tput sgr0)
 YELLOW=$(tput setaf 3)
 GREEN=$(tput setaf 2; tput bold)
+
 OLDIFS=$IFS
 
 IFS=$(echo -en "\n\b")
@@ -26,6 +28,7 @@ file_ext=${fullname##*.}
 # restore field seperator
 IFS=$OLDIFS
 
+#Copy all the arguments in the array 'arguments'
 i=0
 declare -a arguments; 
 for var in "${@:2}"
@@ -34,6 +37,7 @@ do
   i=$(($i+1)) 
 done
 
+#Extension based search for which command to execute
 if [ $file_ext = "py" ]; then
   python "$fullname" "${arguments[@]}"
 elif [ $file_ext = "cpp" ] || [ $file_ext = "cc" ]; then
@@ -74,4 +78,3 @@ elif [ $file_ext = "c" ]; then
   ./"$output_file$c_executable_ext" "${arguments[@]}"
   rm "$output_file$c_executable_ext"
 fi
-
