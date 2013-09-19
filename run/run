@@ -25,6 +25,12 @@ fi
 fullname=$1
 file_ext=${fullname##*.}
 
+# Exit if the file has no extension
+if [ $fullname == $file_ext ]; then
+  echo "File with no extension cannot be passed"
+  quit
+fi
+
 # restore field seperator
 IFS=$OLDIFS
 
