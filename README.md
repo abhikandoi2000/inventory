@@ -9,11 +9,13 @@ This is a collection of tools to simplify everyday tasks.
 
 ##Install
 
-To install these tools run the following command in your terminal
+To install these tools run the following commands in your terminal
 
-    git clone https://github.com/abhikandoi2000/inventory.git
-    cd inventory
-    sudo sh install.sh
+    $ git clone https://github.com/abhikandoi2000/inventory.git
+    $ cd inventory
+    $ sudo sh install.sh
+
+Read program specific Readme(s) for further details on how to use them.
 
 ##Contribute
 
