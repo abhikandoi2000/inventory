@@ -1,0 +1,62 @@
+#!/bin/bash
+# alive - check if internet is really working, or the icon is just fooling you
+# tailor-made for IIT Roorkee's network. Modify accordingly
+
+# url of a website hosted on the internet
+INTERNET="http://google.com"
+
+# url of a website hosted on the intranet
+INTRANET="http://192.168.121.7"
+
+NOT_COMPLETE=true
+
+# status codes
+# 0 => everything up
+# 1 => only internet is down
+# 2 => both internet and intranet is down
+# 3 => only intranet is down
+#
+PREV_STATUS=4
+STATUS=0
+
+while [ $NOT_COMPLETE ]
+do
+  curl -s --output ~/.alive/temp $INTERNET
+  if [ $? -ne 0 ]; then
+    curl -s --output ~/.alive/temp $INTRANET
+    if [ $? -ne 0 ]; then
+      STATUS=2
+    else
+      STATUS=1
+    fi
+  else
+    curl -s --output ~/.alive/temp $INTRANET
+    if [ $? -ne 0 ]; then
+      STATUS=3
+    else
+      STATUS=0
+    fi
+  fi
+
+  # check if network state has changed
+  if [ $PREV_STATUS -ne $STATUS ]; then
+    case $STATUS in
+      0)
+        notify-send -t 1000 "Alive" "Network seems perfectly fine!"
+        ;;
+      1)
+        notify-send -t 1000 "Alive" "Internet is down! Enjoy the intranet."
+        ;;
+      2)
+        notify-send -t 1000 "Alive" "Internet as well as Intranet is down!"
+        ;;
+      3)
+        notify-send -t 1000 "Alive" "Internet seems fine, but Intranet is down!"
+        ;;
+      *)
+        notify-send -t 1000 "Alive" "I sense some kind of tampering!"
+    esac
+  fi
+  PREV_STATUS=$STATUS
+  sleep 15s
+done
