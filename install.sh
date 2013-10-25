@@ -8,7 +8,11 @@ NORMAL=$(tput sgr0)
 
 current_dir=`pwd`
 
-# create symlink
+## create symlinks ##
+# run
 ln -s $current_dir"/run/run" /usr/bin
+
+# alive
+ln -s $current_dir"/alive/alive" /usr/bin
 
 echo "$GREEN[Done]$NORMAL Reopen your terminal to see the changes"
