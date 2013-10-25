@@ -5,6 +5,7 @@ This is a collection of tools to simplify everyday tasks.
 ##Tools
 
 * [run](https://github.com/abhikandoi2000/inventory/tree/master/run "run tool") - simple tool to compile and/or run various files
+* [alive](https://github.com/abhikandoi2000/inventory/tree/tool-alive/alive "alive tool") - check if network is really up or the icon is fooling you
 
 ##Install
 
