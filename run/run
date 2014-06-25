@@ -36,11 +36,11 @@ IFS=$OLDIFS
 
 #Copy all the arguments in the array 'arguments'
 i=0
-declare -a arguments; 
+declare -a arguments;
 for var in "${@:2}"
 do
   arguments[i]=$var
-  i=$(($i+1)) 
+  i=$(($i+1))
 done
 
 #Extension based search for which command to execute
@@ -53,6 +53,7 @@ elif [ $file_ext = "cpp" ] || [ $file_ext = "cc" ]; then
   if [ $? -ne 0 ]; then
     quit
   fi
+  trap "rm $output_file$cpp_executable_ext && quit" 2
   ./"$output_file$cpp_executable_ext" "${arguments[@]}"
   rm "$output_file$cpp_executable_ext"
 elif [ $file_ext = "js" ]; then
@@ -81,6 +82,7 @@ elif [ $file_ext = "c" ]; then
   if [ $? -ne 0]; then
     quit
   fi
+  trap "rm $output_file$c_executable_ext && quit" 2
   ./"$output_file$c_executable_ext" "${arguments[@]}"
   rm "$output_file$c_executable_ext"
 fi
